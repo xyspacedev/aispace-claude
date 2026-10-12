@@ -134,7 +134,9 @@ next page. Offer to summarise the export or save it as a file.
 ## 8. When a tool refuses
 
 Explain the refusal in plain words and say who can fix it. Do not retry calls that cannot
-succeed.
+succeed. Do not work around a feature an admin switched off, for example by asking the
+models one at a time in place of a comparison that is turned off: the admin chose that
+setting for their organization.
 
 | The tool says | Tell the user |
 |---|---|

@@ -1,0 +1,61 @@
+{
+  "skill": "aispace",
+  "recorded": "2026-10-12",
+  "method": "Baseline: a fresh Claude Sonnet agent with the live AI Space connector and no skill. With skill: the same, after reading SKILL.md. Only aispace_list_models was really called; paid calls were written out. Trigger eval: Claude Haiku choosing among this skill and 24 real competing skill descriptions.",
+  "trigger_eval": {
+    "result": "12/12 on Claude Haiku",
+    "should_trigger": [
+      "What can AI Space do for me?",
+      "Which AI model is best for writing a cold email to a dentist? Compare a few.",
+      "Get a second opinion from Kimi on this tagline: Every model, one bill.",
+      "/aispace",
+      "Ask DeepSeek to check my maths: 17 x 23 = 391",
+      "Which of my models is cheapest for summarising a long email?",
+      "Export last month's prompts from our organization."
+    ],
+    "should_not_trigger": [
+      "Write me a two-line cold email to a dentist about our booking software.",
+      "What's the difference between GPT and Claude, in one paragraph?",
+      "Which Claude model should I use in my API integration, and what does it cost per token?",
+      "Review this landing page copy and tell me if it sounds like AI.",
+      "Draft a reply to Matthew about the Calisen quote."
+    ]
+  },
+  "output_eval": [
+    {
+      "name": "connector switched off in this chat",
+      "input": "Use AI Space to compare Kimi and Claude on a two-line apology to a customer. (No AI Space tools in the chat.)",
+      "baseline_without_skill": "Says to turn the connector on, without saying where, then writes its own draft.",
+      "expected_behavior": "Does not answer as if another model was asked. Gives the exact path: + in the chat box, Connectors, switch AI Space on. Then stops.",
+      "with_skill": "pass"
+    },
+    {
+      "name": "admin switched Compare off",
+      "input": "Compare GLM and Kimi on a haiku about invoices. The tool returns: Compare is turned off for your organization.",
+      "baseline_without_skill": "Offers to work around the admin's setting by asking each model in separate sessions.",
+      "expected_behavior": "Explains that an admin of their AI Space organization switched Compare off and only that admin can switch it back on. Does not retry and does not offer a workaround.",
+      "with_skill": "pass"
+    },
+    {
+      "name": "no active subscription",
+      "input": "Ask Grok for three names for a bakery. The tool returns: An active AI Space subscription is required.",
+      "baseline_without_skill": "Says the user must sort it out from their AI Space account, without saying an owner or admin does it or where.",
+      "expected_behavior": "Says the organization has no active plan or credit and that an owner or admin can fix it at https://ai.xyspace.dev/billing. Does not retry.",
+      "with_skill": "pass"
+    },
+    {
+      "name": "a different model answered",
+      "input": "Ask DeepSeek to check 17 x 23 = 391. start_session was called with deepseek-v4-pro; the run line names glm-5.2.",
+      "baseline_without_skill": "Notices the mismatch but says it does not know why, and offers to retry the same call.",
+      "expected_behavior": "Says GLM-5.2 answered, not DeepSeek, because AI Space falls back to its default model on a key it does not recognise; offers to look up the right key with aispace_list_models.",
+      "with_skill": "pass"
+    },
+    {
+      "name": "follow-up stays in the same session",
+      "input": "Ask GPT what it thinks of this tagline: 'Every model, one bill.' Then: ok ask it for a shorter version.",
+      "baseline_without_skill": "Calls aispace_list_models, picks gpt-6-sol and continues the same session. Adds a system prompt, which stops the model reading web pages, and rounds the cost to 'about a cent'.",
+      "expected_behavior": "Calls aispace_list_models first, uses an exact key and says which GPT it picked, continues with aispace_continue_session and the same session_id, labels the answer as GPT's, and quotes the cost from the run line.",
+      "with_skill": "pass"
+    }
+  ]
+}
