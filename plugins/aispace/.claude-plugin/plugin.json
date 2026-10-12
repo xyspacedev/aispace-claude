@@ -1,0 +1,13 @@
+{
+  "name": "aispace",
+  "version": "1.0.0",
+  "description": "Use AI Space from Claude: compare AI models side by side, get a second opinion from another model, and see what each answer cost. Adds the AI Space connector and teaches Claude when to use it.",
+  "author": {
+    "name": "XY Space",
+    "url": "https://xyspace.dev"
+  },
+  "homepage": "https://ai.xyspace.dev/connect",
+  "repository": "https://github.com/xyspacedev/aispace-claude",
+  "license": "MIT",
+  "keywords": ["aispace", "models", "compare", "second opinion"]
+}

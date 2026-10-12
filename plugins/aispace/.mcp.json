@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "aispace": {
+      "type": "http",
+      "url": "https://ai.xyspace.dev/mcp"
+    }
+  }
+}

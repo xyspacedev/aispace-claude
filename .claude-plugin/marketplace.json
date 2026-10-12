@@ -1,0 +1,20 @@
+{
+  "name": "xyspace",
+  "owner": {
+    "name": "XY Space",
+    "url": "https://xyspace.dev"
+  },
+  "metadata": {
+    "description": "XY Space plugins for Claude."
+  },
+  "plugins": [
+    {
+      "name": "aispace",
+      "displayName": "AI Space",
+      "source": "./plugins/aispace",
+      "description": "Use AI Space from Claude: compare AI models side by side, get a second opinion from another model, and see what each answer cost.",
+      "category": "productivity",
+      "homepage": "https://ai.xyspace.dev/connect"
+    }
+  ]
+}
